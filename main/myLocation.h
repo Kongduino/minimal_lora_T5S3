@@ -1,0 +1,1 @@
+float homeLat = 22.459269, homeLng = 114.000712;
