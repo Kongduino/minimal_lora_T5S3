@@ -36,7 +36,7 @@ void idf_loop();
 
 void displayStatus(char *txt) {
   epd_poweron();
-  clearArea(0, baseLine, epd_width(), 33);
+  clearArea(0, baseLine - 5, epd_width(), 40);
   EpdFontProperties font_props = epd_font_properties_default();
   font_props.flags = EPD_DRAW_ALIGN_LEFT;
   int cx = 10, cy = baseLine + 30;

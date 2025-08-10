@@ -86,6 +86,10 @@ void handleMode() {
 
 void handleLoRa() {
   clearArea(0, level1, epd_width(), 260);
+  char txt[32];
+  sprintf(txt, (char *)"LoRa settings");
+  displayStatus(txt);
+  Serial.println(txt);
   currButtons = loRaButtons;
   btnCount = sizeof(loRaButtons) / sizeof(kButton);
   int x = drawMenu(10, level1);
@@ -103,8 +107,11 @@ void setSF() {
 }
 
 void handleSF() {
-  printf("handleSF\n");
   clearArea(0, level2, epd_width(), 130);
+  char txt[32];
+  sprintf(txt, (char *)"SF settings");
+  displayStatus(txt);
+  Serial.println(txt);
   currButtons = sfButtons;
   btnCount = sizeof(sfButtons) / sizeof(kButton);
   int x = drawMenu(10, level2);
@@ -155,8 +162,11 @@ void setBW() {
 }
 
 void handleBW() {
-  printf("handleBW\n");
   clearArea(0, level2, epd_width(), 130);
+  char txt[32];
+  sprintf(txt, (char *)"BW settings");
+  displayStatus(txt);
+  Serial.println(txt);
   currButtons = bwButtons;
   btnCount = sizeof(bwButtons) / sizeof(kButton);
   int x = drawMenu(10, level2);
@@ -219,8 +229,11 @@ void setCR() {
 }
 
 void handleCR() {
-  printf("handleCR\n");
   clearArea(0, level2, epd_width(), 130);
+  char txt[32];
+  sprintf(txt, (char *)"CR settings");
+  displayStatus(txt);
+  Serial.println(txt);
   currButtons = crButtons;
   btnCount = sizeof(crButtons) / sizeof(kButton);
   int x = drawMenu(10, level2);
@@ -271,7 +284,10 @@ void handleCR8() {
 }
 
 void handleFreq() {
-  printf("handleFreq\n");
+  char txt[32];
+  sprintf(txt, (char *)"Freq: not yet...");
+  displayStatus(txt);
+  Serial.println(txt);
 }
 
 void handlePing() {
@@ -281,7 +297,10 @@ void handlePing() {
 
 void handleBL() {
   blON = 100 - blON;
-  printf("Setting B/L to %d\n", blON);
+  char txt[32];
+  sprintf(txt, "Setting B/L to %d\n", blON);
+  displayStatus(txt);
+  Serial.println(txt);
   analogWrite(BOARD_BL_EN, blON);
 }
 
