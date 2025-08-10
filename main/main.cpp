@@ -126,7 +126,7 @@ int lastRslt = -1;
 
 void idf_loop() {
   uint32_t now = millis();
-  if ((now - lastClick) > 1200) lastRslt = -1;
+  if ((now - lastClick) > 2500) lastRslt = -1;
   if (millis() > lastGPScheck + 30000) {
     printf("Checking GPS...\n");
     checkGNSS();
