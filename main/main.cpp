@@ -120,6 +120,7 @@ void idf_setup() {
   // transmissionState = radio.startTransmit("Hello World!");
   // xTaskCreate(btn_task, "lora_task", 1024 * 3, NULL, INFARED_PRIORITY, &btn_handle);
   initBaterrySchedule();
+  showBattery(NULL);
 }
 
 int lastRslt = -1;

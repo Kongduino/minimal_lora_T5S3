@@ -222,17 +222,27 @@ void parseGPGSA(vector<string> result) {
 bool waitForDollar = true;
 
 void checkGNSS() {
+  char buffer[256];
+  uint8_t ix = 0;
   while (SerialGPS.available()) {
     char c = SerialGPS.read();
     if (waitForDollar && c == '$') {
+      buffer[ix++] = '$';
       waitForDollar = false;
     } else if (waitForDollar == false) {
-      string dollar("$G");
-      String XX = SerialGPS.readStringUntil('\r');
-      printf(" * Received: $G%s\n", XX.c_str());
-      string nextLine(XX.c_str());
-      userStrings.push_back(dollar + nextLine.substr(0, nextLine.length() - 3));
-      waitForDollar = true;
+      if (c == '*') {
+        buffer[ix] = '\0';
+        c = SerialGPS.read();
+        c = SerialGPS.read();
+        c = SerialGPS.read();
+        c = SerialGPS.read();
+        string myString(buffer);
+        userStrings.push_back(myString);
+        waitForDollar = true;
+        ix = 0;
+      } else {
+        buffer[ix++] = c;
+      }      
     }
   }
   printf("Number of lines: %d\n", userStrings.size());
@@ -249,8 +259,8 @@ void checkGNSS() {
       int rs = result.size();
       printf("result has %d element%s\n", rs, rs < 2 ? "." : "s.");
       if (rs == 0) return;
-      for(int ix = 0; ix < rs; ix++)
-        printf(" * chunk %d: %s\n", ix, result.at(ix).c_str());
+//       for(int ix = 0; ix < rs; ix++)
+//         printf(" * chunk %d: %s\n", ix, result.at(ix).c_str());
       string verb = result.at(0);
       if (verb.substr(3, 3) == "RMC") {
         parseGPRMC(result);
