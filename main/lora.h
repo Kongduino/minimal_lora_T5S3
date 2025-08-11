@@ -283,6 +283,7 @@ void displayPackets() {
 //   if (pks > 6)
 //     start = pks - 6;
 //   for (uint8_t ix = start; ix < pks; ix++) {
+    if(displayingPacketNum == -1) displayingPacketNum = 0;
     kPacket pk = myPackets[displayingPacketNum];
     sprintf(text, "%d:  %s --> %s", displayingPacketNum, pk.from, pk.to);
     Serial.println(text);

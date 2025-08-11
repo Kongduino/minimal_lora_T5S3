@@ -57,6 +57,7 @@ vector<string> parseNMEA(string nmea) {
 }
 
 void parseGPRMC(vector<string> result) {
+  if (result.size() < 13) return;
   if (result.at(1) != "") {
     sprintf(timeUTC, "Time: %s:%s:%s UTC", result.at(1).substr(0, 2).c_str(), result.at(1).substr(2, 2).c_str(), result.at(1).substr(4, 2).c_str());
     Serial.println((const char*)timeUTC);
@@ -80,6 +81,7 @@ void parseGPRMC(vector<string> result) {
 }
 
 void parseGPGGA(vector<string> result) {
+  if (result.size() < 15) return;
   if (result.at(1) != "") {
     sprintf(timeUTC, "Time: %s:%s:%s UTC", result.at(1).substr(0, 2).c_str(), result.at(1).substr(2, 2).c_str(), result.at(1).substr(4, 2).c_str());
     Serial.println((const char*)timeUTC);
@@ -127,12 +129,13 @@ void parseGPDHV(vector<string> result) {
 }
 
 void parseGPZDA(vector<string> result) {
+  if (result.size() < 7) return;
   if (result.at(1) != "") {
     sprintf(timeUTC, "Time: %s:%s:%s UTC", result.at(1).substr(0, 2).c_str(), result.at(1).substr(2, 2).c_str(), result.at(1).substr(4, 2).c_str());
     Serial.println((const char*)buffer);
     validTime = true;
   } else validTime = false;
-  if (result.at(2) != "" && result.size() > 6) {
+  if (result.at(2) != "") {
     sprintf(dateUTC, "Date: %c%c%c%c/%c%c/%c%c UTC",
       result.at(4)[0], result.at(4)[1], result.at(4)[2], result.at(4)[3],
       result.at(3)[0], result.at(3)[1],
@@ -144,6 +147,7 @@ void parseGPZDA(vector<string> result) {
 }
 
 void parseGPGLL(vector<string> result) {
+  if (result.size() < 8) return;
   if (result.at(1) != "") {
     latitude = parseDegrees(result.at(1).c_str());
     longitude = parseDegrees(result.at(3).c_str());
@@ -154,6 +158,7 @@ void parseGPGLL(vector<string> result) {
 }
 
 void parseGPGSV(vector<string> result) {
+  if (result.size() < 4) return;
   if (result.at(1) != "") {
     uint8_t newSIV = atoi(result.at(3).c_str());
     // if (SIV != newSIV) {
@@ -165,6 +170,7 @@ void parseGPGSV(vector<string> result) {
 }
 
 void parseGPTXT(vector<string> result) {
+  if (result.size() < 5) return;
   //$GPTXT, 01, 01, 02, ANTSTATUS = INIT
   if (result.at(1) != "") {
     sprintf(
@@ -177,6 +183,7 @@ void parseGPTXT(vector<string> result) {
 }
 
 void parseGPVTG(vector<string> result) {
+  if (result.size() < 10) return;
   Serial.println("Track Made Good and Ground Speed.");
   if (result.at(1) != "") {
     sprintf((char*)buffer, " . True track made good %s [%s].\n", result.at(1).c_str(), result.at(2).c_str());
@@ -197,6 +204,7 @@ void parseGPVTG(vector<string> result) {
 }
 
 void parseGPGSA(vector<string> result) {
+  if (result.size() < 5) return;
   // $GPGSA,A,3,15,29,23,,,,,,,,,,12.56,11.96,3.81
   Serial.println("GPS DOP and active satellites");
   if (result.at(1) == "A") Serial.println(" . Mode: Automatic");
@@ -257,10 +265,10 @@ void checkGNSS() {
     } else {
       vector<string> result = parseNMEA(nextLine);
       int rs = result.size();
-      printf("result has %d element%s\n", rs, rs < 2 ? "." : "s.");
+      // printf("result has %d element%s\n", rs, rs < 2 ? "." : "s.");
       if (rs == 0) return;
-//       for(int ix = 0; ix < rs; ix++)
-//         printf(" * chunk %d: %s\n", ix, result.at(ix).c_str());
+      // for(int ix = 0; ix < rs; ix++)
+      //   printf(" * chunk %d: %s\n", ix, result.at(ix).c_str());
       string verb = result.at(0);
       if (verb.substr(3, 3) == "RMC") {
         parseGPRMC(result);
