@@ -1,0 +1,40 @@
+2 nGGA	数值 GGA 输出频率，语句输出频率是以定位更新率为基准
+		的，n（0~9）表示每 n 次定位输出一次，0 表示不输出
+		该语句，空则保持原有配置。
+3 nGLL	数值 GLL 输出频率，同 nGGA
+4 nGSA	数值 GSA 输出频率，同 nGGA
+5 nGSV	数值 GSV 输出频率，同 nGGA
+6 nRMC	数值 RMC 输出频率，同 nGGA
+7 nVTG	数值 VTG 输出频率，同 nGGA
+8 nZDA	数值 ZDA 输出频率，同 nGGA
+9 nANT	数值 ANT 输出频率，同 nGGA
+10 nDHV	数值 DHV 输出频率，同 nGGA
+11 nLPS 数值 LPS 输出频率，同 nGGA
+12 res1 数值 保留
+13 res2 数值 保留
+14 nUTC 数值 UTC 输出频率，同 nGGA
+15 nGST 数值 GST 输出频率，同 nGST
+16 res3 数值 保留
+17 res4 数值 保留
+18 res5 数值 保留
+19 nTIM 数值 TIM (PCAS60) 输出频率，同 nGGA
+
+$PCAS03,1,1,1,1,1,1,1,1,0,0,,,1,1,,,,1*33
+$PCAS03,1,1,1,1,1,1,1,1,1,0,,,1,1,,,,1*32
+$PCAS03,1,1,1,1,1,1,1,1,1,1,,,1,1,,,,1*33
+
+$PCAS02,1000*2E
+$PCAS02,500*1A
+$PCAS02,250*18
+$PCAS02,200*1D
+$PCAS02,100*1E
+
+$PCAS04,3*1A 北斗和GPS双模
+$PCAS04,5*1C 北斗和GLONASS
+$PCAS04,7*1E 北斗和GPS和GLONASS
+
+$PCAS10,0*1C 热启动
+$PCAS10,1*1D 温启动
+$PCAS10,2*1E 冷启动
+$PCAS10,3*1F 出厂启动
+
