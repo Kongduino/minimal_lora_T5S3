@@ -106,6 +106,7 @@ void parseGPGGA(vector<string> result) {
 }
 
 void parseGPDHV(vector<string> result) {
+  if (result.size() < 7) return;
   if (result.at(1) != "") {
     sprintf(timeUTC, "Time: %s:%s:%s UTC", result.at(1).substr(0, 2).c_str(), result.at(1).substr(2, 2).c_str(), result.at(1).substr(4, 2).c_str());
     Serial.println((const char*)timeUTC);
