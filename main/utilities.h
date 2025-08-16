@@ -42,6 +42,8 @@ void showGPSinfo();
 // void btn_task(void *);
 void handleBL();
 void handleMsg();
+void handleModeMS();
+void handleModeP2P();
 
 // GNSS
 void parseGPRMC(vector<string>);

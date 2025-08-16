@@ -50,7 +50,7 @@ kButton crButtons[] = {
 
 kButton modeButtons[] = {
   { handleModeMS, 0, 0, "//\\+", "*" },
-  { handleCR6, 0, 0, "P2P", "" },
+  { handleModeP2P, 0, 0, "P2P", "" },
   { handleMain, 0, 0, "Back", "" },
 };
 
@@ -88,19 +88,21 @@ void handleMain() {
 
 void handleModeMS() {
   printf("handleModeMS\n");
-  myMode = loraP2P;
-  displayStatus((char *)"Mode set to P2P.");
-  strcpy(modeButtons[1].value, "*");
-  memset(sfButtons[0].value, 0, 10);
+  myMode = loraMS;
+  displayStatus((char *)"Mode set to //\\+.");
+  strcpy(modeButtons[0].value, "*");
+  memset(sfButtons[1].value, 0, 10);
+  strcpy(myButtons[1].value, "//\\+");
   handleMain();
 }
 
 void handleModeP2P() {
   printf("handleModeP2P\n");
-  myMode = loraMS;
-  displayStatus((char *)"Mode set to //\\+.");
-  strcpy(modeButtons[0].value, "*");
-  memset(sfButtons[1].value, 0, 10);
+  myMode = loraP2P;
+  displayStatus((char *)"Mode set to P2P.");
+  strcpy(modeButtons[1].value, "*");
+  memset(modeButtons[0].value, 0, 10);
+  strcpy(myButtons[1].value, "p2p");
   handleMain();
 }
 
@@ -110,8 +112,8 @@ void handleMode() {
   sprintf(txt, (char *)"LoRa Mode");
   displayStatus(txt);
   Serial.println(txt);
-  currButtons = loRaButtons;
-  btnCount = sizeof(loRaButtons) / sizeof(kButton);
+  currButtons = modeButtons;
+  btnCount = sizeof(modeButtons) / sizeof(kButton);
   int x = drawMenu(10, level1);
 }
 
